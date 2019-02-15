@@ -31,7 +31,7 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-v4:27.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.facebook.android:facebook-share:4.40.0'
+    implementation 'com.facebook.android:facebook-core:4.40.0'
 }

@@ -2,10 +2,14 @@ package com.albertalrisa.flutter.plugins.shareapi.intents
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.support.v4.content.FileProvider
 import com.albertalrisa.flutter.plugins.shareapi.requests.FACEBOOK_SHARE_TO_STORY
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.flutter.plugin.common.MethodChannel
+import com.facebook.share.model.ShareHashtag
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import java.io.File
 
 class Facebook(authority_name: String, registrar: Registrar, activity: Activity): BaseIntent(authority_name, registrar, activity) {
@@ -17,10 +21,30 @@ class Facebook(authority_name: String, registrar: Registrar, activity: Activity)
             "shareToStory" -> {
                 shareToStory(arguments, result)
             }
+            "shareLinkToNewsFeed" -> {
+                shareLinkToNewsFeed(arguments, result)
+            }
             else -> {
                 result.notImplemented()
             }
         }
+    }
+
+    private fun shareLinkToNewsFeed(arguments: Map<String, String>, result: MethodChannel.Result) {
+        val shareDialog = ShareDialog(activity)
+
+        val link = arguments["link"]
+        val hashTag = arguments["hashTag"]
+        var shareHashTag: ShareHashtag? = null
+        if (hashTag != null) {
+            shareHashTag = ShareHashtag.Builder().setHashtag(hashTag).build()
+        }
+        val linkContent = ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(link))
+                .setShareHashtag(shareHashTag)
+                .build()
+
+        shareDialog.show(linkContent)
     }
 
     private fun shareToStory(arguments: Map<String, String>, result: MethodChannel.Result) {

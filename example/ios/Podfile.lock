@@ -1,14 +1,42 @@
 PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FacebookCore (0.5.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.37)
+  - FacebookShare (0.5.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKShareKit (~> 4.37)
+  - FBSDKCoreKit (4.40.0):
+    - Bolts (~> 1.9)
+  - FBSDKShareKit (4.40.0):
+    - FBSDKCoreKit
   - Flutter (1.0.0)
   - path_provider (0.0.1):
     - Flutter
   - share_api (0.0.1):
+    - FacebookCore
+    - FacebookShare
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share_api (from `.symlinks/plugins/share_api/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - FacebookCore
+    - FacebookShare
+    - FBSDKCoreKit
+    - FBSDKShareKit
 
 EXTERNAL SOURCES:
   Flutter:
@@ -19,9 +47,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share_api/ios"
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
+  FacebookShare: 963b4bb1124a64a395b1e428163d70b5774116e8
+  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
+  FBSDKShareKit: 0e45916f4150da485928ae2a17ca021950b194f5
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
-  share_api: 44f143e4329fa29b318ae01509b85656a6538610
+  share_api: aa09c4202d2ef7f169fc4c18f16776313ef5fe38
 
 PODFILE CHECKSUM: 7765ea4305eaab0b3dfd384c7de11902aa3195fd
 

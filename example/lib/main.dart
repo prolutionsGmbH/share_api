@@ -87,6 +87,14 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void shareLinkToNewsFeed() async {
+    var image = await rootBundle.load('assets/image.jpg');
+    ShareApi.viaFacebook.setAppId("000000000000000");
+    ShareApi.viaFacebook.shareLinkToNewsFeed(link: "https://www.facebook.com", hashTag: "#facebook").then((response) {
+      print('Facebook NewsFeed $response');
+    });
+  }
+
   void shareImage() async {
     setState(() {
       _isLoading = true;
@@ -138,6 +146,19 @@ class _MyAppState extends State<MyApp> {
                           ? Center(child: CircularProgressIndicator())
                           : Text(
                               'Share File To Instagram Story',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                    ),
+                    RawMaterialButton(
+                      onPressed: () {
+                        shareLinkToNewsFeed();
+                      },
+                      fillColor: Colors.lightBlue,
+                      splashColor: Colors.lightBlueAccent,
+                      child: _isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : Text(
+                              'Share Link To Facebook News Feed',
                               style: TextStyle(color: Colors.white),
                             ),
                     ),

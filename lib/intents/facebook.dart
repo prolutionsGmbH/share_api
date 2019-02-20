@@ -83,6 +83,17 @@ class Facebook extends ShareIntent {
     }
   }
 
+  Future<int> shareLinkToNewsFeed({String link, String hashTag}) async {
+    assert(link != null && link.isNotEmpty && Uri.tryParse(link) != null);
+    return await channel.invokeMethod('share', {
+      'handler': {
+        'module': handlerModule,
+        'function': 'shareLinkToNewsFeed',
+      },
+      'arguments': {'appId': _appId, 'link': link, 'hashTag': hashTag}
+    });
+  }
+
   @override
   Future<bool> isPackageInstalled() async {
     return await channel.invokeMethod('isInstalled', {

@@ -5,14 +5,40 @@
 //  Created by Albert Richard Sanyoto on 2019-01-11.
 //
 
+import FacebookShare
+
 class Facebook: ShareIntent {
     func execute(function: String, arguments: Dictionary<String, String?>, result: @escaping FlutterResult) {
         switch function {
         case "shareToStory": self.shareToStory(arguments: arguments, result: result);
+        case "shareLinkToNewsFeed": self.shareLinkToNewsFeed(arguments: arguments, result: result);
         default: result(FlutterMethodNotImplemented);
         }
     }
-    
+
+    func shareLinkToNewsFeed(arguments: Dictionary<String, String?>, result: @escaping FlutterResult) {
+        let link:String? = arguments["link"]!
+        let hashTag:String? = arguments["hashTag"]!
+        if link != nil {
+            var content:LinkShareContent = LinkShareContent.init(url: URL.init(string: link!)!)
+            if hashTag != nil {
+                content.hashtag = Hashtag.init(hashTag!)
+            }
+
+            let shareDialog = ShareDialog(content: content)
+            shareDialog.mode = .native
+            shareDialog.failsOnInvalidData = true
+
+            do {
+                try shareDialog.show()
+            } catch {
+                result(FlutterError(code: "UnableToShareException", message: "Sharing dialog could not be shown. Error: \(error).", details: arguments))
+            }
+        } else {
+            result(FlutterError(code: "IllegalArgumentException", message: "Link cannot be nil.", details: arguments))
+        }
+    }
+
     func shareToStory(arguments: Dictionary<String, String?>, result: @escaping FlutterResult) {
         var pasteboardItems: [[String: Any]] = []
         let argsKeys = arguments.keys
